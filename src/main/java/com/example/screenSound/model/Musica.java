@@ -1,8 +1,16 @@
 package com.example.screenSound.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "musicas")
 public class Musica {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String titulo;
     private String album;
+    @ManyToOne(fetch = FetchType.LAZY)
     private Artista artista;
 
     public Musica() {}
@@ -42,7 +50,6 @@ public class Musica {
         return "Musica{" +
                 "titulo='" + titulo + '\'' +
                 ", album='" + album + '\'' +
-                ", artista=" + artista +
                 '}';
     }
 }

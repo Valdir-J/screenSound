@@ -1,14 +1,26 @@
 package com.example.screenSound.model;
 
+import jakarta.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "artistas")
 public class Artista {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
+    @Enumerated(EnumType.STRING)
     private TipoArtista tipo;
+    @OneToMany(mappedBy = "artista",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
     private Set<Musica> musicas = new HashSet<>();
 
-    public Artista() {}
+    public Artista() {
+    }
 
     public Artista(String nome, TipoArtista tipo) {
         this.nome = nome;
@@ -36,6 +48,7 @@ public class Artista {
     }
 
     public void setMusicas(Set<Musica> musicas) {
+        musicas.forEach(m -> m.setArtista(this));
         this.musicas = musicas;
     }
 
@@ -44,7 +57,6 @@ public class Artista {
         return "Artista{" +
                 "nome='" + nome + '\'' +
                 ", tipo=" + tipo +
-                ", musicas=" + musicas +
                 '}';
     }
 }
