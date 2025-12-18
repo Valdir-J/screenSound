@@ -46,7 +46,7 @@ public class Principal {
 
             switch (opcao) {
                 case 1:
-                    criarArtistas();
+                    cadastrarArtistas();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -58,7 +58,7 @@ public class Principal {
         }
     }
 
-    private void criarArtistas() {
+    private void cadastrarArtistas() {
         Set<Artista> artistas = new HashSet<>();
         String opcao = "S";
 
