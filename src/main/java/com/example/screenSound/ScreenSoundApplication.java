@@ -1,5 +1,6 @@
 package com.example.screenSound;
 
+import com.example.screenSound.principal.Principal;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,7 @@ public class ScreenSoundApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Hello World!");
+        Principal principal = new Principal();
+        principal.exibeMenu();
     }
 }
