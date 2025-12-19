@@ -33,7 +33,6 @@ public class Principal {
                 2 - Cadastrar Músicas
                 3 - Listar Músicas 
                 4 - Buscar músicas por artista
-                5 - Pesquisar dados sobre um artista
                 
                 0 - Sair
                 """;
