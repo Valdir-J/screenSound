@@ -1,11 +1,13 @@
 package com.example.screenSound.principal;
 
 import com.example.screenSound.model.Artista;
+import com.example.screenSound.model.Musica;
 import com.example.screenSound.model.TipoArtista;
 import com.example.screenSound.repository.ArtistaRepository;
 import com.example.screenSound.repository.MusicaRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -48,6 +50,9 @@ public class Principal {
                 case 1:
                     cadastrarArtistas();
                     break;
+                case 2:
+                    cadastrarMusicas();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -78,5 +83,44 @@ public class Principal {
         }
         artistaRepository.saveAll(artistas);
         System.out.println("Artistas cadastrados com sucesso!");
+    }
+
+    private void cadastrarMusicas() {
+        Set<Musica> musicas = new HashSet<>();
+        String opcao = "S";
+        Optional<Artista> artista = Optional.empty();
+
+        System.out.println("Qual é o nome do artista?");
+        while (true) {
+            var nomeArtista = scanner.nextLine();
+
+            artista = artistaRepository.procurarArtista(nomeArtista);
+
+            if (artista.isPresent()) {
+                System.out.println("Artista encontrado: " + artista.get().getNome());
+                break;
+            } else {
+                System.out.println("Artista não encontrado!");
+            }
+        }
+
+        System.out.println("\n-----Cadastro de músicas -----\n");
+
+        while (opcao.equalsIgnoreCase("S")) {
+            System.out.println("Qual é o nome da música?");
+            var nomeMusica = scanner.nextLine();
+
+            System.out.println("Qual é o nome do álbum?");
+            var nomeAlbum = scanner.nextLine();
+
+            Musica novaMusica = new Musica(nomeMusica, nomeAlbum, artista.get());
+            musicas.add(novaMusica);
+
+            System.out.println("Deseja cadastrar mais músicas? (S/N)");
+            opcao = scanner.nextLine().trim();
+        }
+
+        musicaRepository.saveAll(musicas);
+        System.out.println("Músicas cadastradas com sucesso!");
     }
 }
