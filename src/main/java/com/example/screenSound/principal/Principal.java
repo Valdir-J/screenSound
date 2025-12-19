@@ -6,10 +6,7 @@ import com.example.screenSound.model.TipoArtista;
 import com.example.screenSound.repository.ArtistaRepository;
 import com.example.screenSound.repository.MusicaRepository;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Principal {
     private final Scanner scanner = new Scanner(System.in);
@@ -52,6 +49,9 @@ public class Principal {
                     break;
                 case 2:
                     cadastrarMusicas();
+                    break;
+                case 3:
+                    listarMusicas();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -122,5 +122,17 @@ public class Principal {
 
         musicaRepository.saveAll(musicas);
         System.out.println("Músicas cadastradas com sucesso!");
+    }
+
+    private void listarMusicas() {
+        List<Musica> musicasBuscadas = musicaRepository.buscarMusicasComArtista();
+
+        System.out.println("\n-----Músicas-----");
+        musicasBuscadas.forEach(m -> {
+            System.out.println("Música: " + m.getTitulo() + " - " +
+                    "álbum: " + m.getAlbum() + " - " +
+                    "artista: " + m.getArtista().getNome()
+                    );
+        });
     }
 }
