@@ -9,4 +9,7 @@ import java.util.List;
 public interface MusicaRepository extends JpaRepository<Musica, Long> {
     @Query("SELECT m FROM Musica m JOIN FETCH m.artista")
     List<Musica> buscarMusicasComArtista();
+
+    @Query("SELECT m FROM Musica m WHERE m.artista.nome ILIKE :nomeArtista")
+    List<Musica> buscarMusicasPorArtista(String nomeArtista);
 }

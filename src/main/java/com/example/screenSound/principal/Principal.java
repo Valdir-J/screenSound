@@ -53,6 +53,9 @@ public class Principal {
                 case 3:
                     listarMusicas();
                     break;
+                case 4:
+                    listarMusicasPorArtista();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -134,5 +137,24 @@ public class Principal {
                     "artista: " + m.getArtista().getNome()
                     );
         });
+    }
+
+    private void listarMusicasPorArtista() {
+        System.out.println("Digite o nome do artista:");
+
+        while (true) {
+        var nomeArtista = scanner.nextLine();
+        List<Musica> musicasEncontradas = musicaRepository.buscarMusicasPorArtista(nomeArtista);
+
+            if (musicasEncontradas.isEmpty()) {
+                System.out.println("Nenhuma música encontrada para o artista " + nomeArtista);
+            } else {
+                musicasEncontradas.forEach(m -> {
+                    System.out.println("Música: " + m.getTitulo() +
+                            " - " + "álbum: " + m.getAlbum());
+                });
+                break;
+            }
+        }
     }
 }
